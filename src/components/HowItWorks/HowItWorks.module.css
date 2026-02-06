@@ -1,0 +1,56 @@
+.section {
+  background: var(--light-secondary-bg);
+  padding: 72px 0;
+}
+
+.header {
+  text-align: center;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(30px, 4.2vw, 46px);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--color-text-strong);
+}
+
+.gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.workflows {
+  display: grid;
+  gap: 26px;
+}
+
+.workflow {
+  min-width: 0;
+}
+
+@media (min-width: 980px) {
+  .workflows {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: stretch;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 860px) {
+  .workflows {
+    gap: 24px;
+  }
+}

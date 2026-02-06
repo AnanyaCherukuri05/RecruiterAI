@@ -1,0 +1,59 @@
+:root {
+  /* Brand palette (do not change) */
+  --accent-1: #a5d8ff;
+  --accent-2: #d0bcff;
+  --accent-3: #b197fc;
+  --light-primary: #3b82f6;
+  --light-primary-bg: #eff6ff;
+  --light-secondary-bg: #ffffff;
+  --light-secondary: #f3f4f6;
+  --dark-primary: #3b82f6;
+  --dark-primary-bg: #000000;
+  --dark-secondary-bg: #404040;
+  --dark-secondary: #737373;
+
+  /* RGB helpers (to apply alpha while staying within the palette) */
+  --rgb-accent-1: 165 216 255;
+  --rgb-accent-2: 208 188 255;
+  --rgb-accent-3: 177 151 252;
+  --rgb-light-primary: 59 130 246;
+  --rgb-white: 255 255 255;
+  --rgb-black: 0 0 0;
+
+  /* Layout */
+  --container: 1120px;
+
+  /* Typography (must map to palette) */
+  --font-family-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 16px;
+  --text-lg: 18px;
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.65;
+
+  --gradient-brand: linear-gradient(
+    90deg,
+    var(--accent-1) 0%,
+    var(--light-primary) 36%,
+    var(--accent-2) 72%,
+    var(--accent-3) 100%
+  );
+
+  --color-text-strong: var(--dark-primary-bg);
+  --color-text: var(--dark-secondary-bg);
+  --color-text-muted: var(--dark-secondary);
+
+  /* Radius */
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-sm: 12px;
+}
