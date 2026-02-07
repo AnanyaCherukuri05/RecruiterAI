@@ -1,59 +1,73 @@
+import useScrollAnimation from '../../hooks/useScrollAnimation.js';
 import styles from './Impact.module.css';
 
 const METRICS = [
   {
-    label: '10x Faster Screening',
-    detail: 'AI ranks 250+ apps/day vs 25 manually',
     value: '10x',
+    label: 'Faster Screening',
+    detail: 'AI ranks 250+ apps/day vs 25 manually'
   },
   {
-    label: '70% Faster Time-to-Hire',
-    detail: '42 days → 12 days',
     value: '70%',
+    label: 'Faster Time-to-Hire',
+    detail: '42 days → 12 days'
   },
   {
-    label: '25x Interview Capacity',
-    detail: '200+ automated interviews/day',
     value: '25x',
+    label: 'Interview Capacity',
+    detail: '200+ automated interviews/day'
   },
-  { label: '95% Application Completion', detail: 'Fewer drop-offs, more signal', value: '95%' },
-  { label: '89% More Qualified Applications', detail: 'Better matching and targeting', value: '89%' },
-  { label: '80% Lower Recruitment Costs', detail: 'Automation replaces manual overhead', value: '80%' },
-  { label: '50% Reduction in Bad Hires', detail: 'Rubric-based scoring reduces bias', value: '50%' },
+  {
+    value: '95%',
+    label: 'Application Completion',
+    detail: 'Higher completion rates'
+  },
+  {
+    value: '89%',
+    label: 'More Qualified Applications',
+    detail: 'Better candidate matching'
+  },
+  {
+    value: '80%',
+    label: 'Lower Recruitment Costs',
+    detail: 'Reduced manual overhead'
+  },
+  {
+    value: '50%',
+    label: 'Reduction in Bad Hires',
+    detail: 'Data-driven decisions'
+  }
 ];
 
-function MetricCard({ label, detail, value, index }) {
-  const intensity = Math.min(0.18 + index * 0.02, 0.3);
-
-  return (
-    <div className={styles.card} style={{ '--glow': intensity }}>
-      <div className={styles.top}>
-        <div className={styles.value}>{value}</div>
-        <div className={styles.badge}>Impact</div>
-      </div>
-      <div className={styles.label}>{label}</div>
-      <div className={styles.detail}>{detail}</div>
-      <div className={styles.bar} aria-hidden="true">
-        <span className={styles.fill} />
-      </div>
-    </div>
-  );
-}
-
 export default function Impact() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className={styles.section} aria-labelledby="impact-title">
+    <section id="features" className={styles.section} ref={ref}>
       <div className="container">
-        <header className={styles.header}>
-          <h2 className={styles.title} id="impact-title">
-            The RecruiterAI <span className={styles.gradient}>Advantage</span>
+        <div className={`${styles.header} ${isVisible ? styles.visible : ''}`}>
+          <h2 className={styles.title}>
+            The RecruiterAI <span className="gradient-text">Advantage</span>
           </h2>
-          <p className={styles.subtitle}>Measured outcomes that improve speed, quality, and cost—across the entire workflow.</p>
-        </header>
+          <p className={styles.subtitle}>
+            Measured outcomes that improve speed, quality, and cost across the entire workflow.
+          </p>
+        </div>
 
         <div className={styles.grid}>
-          {METRICS.map((m, i) => (
-            <MetricCard key={m.label} {...m} index={i} />
+          {METRICS.map((metric, index) => (
+            <div 
+              key={index} 
+              className={`${styles.card} ${isVisible ? styles.visible : ''}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className={styles.value}>{metric.value}</div>
+              <div className={styles.label}>{metric.label}</div>
+              <div className={styles.detail}>{metric.detail}</div>
+              <div className={styles.bar}>
+                <div className={`${styles.barFill} ${isVisible ? styles.barFillAnimated : ''}`}></div>
+              </div>
+            </div>
           ))}
         </div>
       </div>

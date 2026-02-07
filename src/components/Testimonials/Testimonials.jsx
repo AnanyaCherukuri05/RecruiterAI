@@ -1,72 +1,58 @@
+import useScrollAnimation from '../../hooks/useScrollAnimation.js';
 import styles from './Testimonials.module.css';
 
 const TESTIMONIALS = [
   {
-    name: 'Rahul Mehta',
-    title: 'Hiring Manager',
-    company: 'GrowthCo',
-    quote:
-      'We cut our screening time from days to hours. The shortlists are consistently high quality, and scheduling just happens.',
+    quote: "We went from 6 weeks to hire a developer to just 10 days. RecruiterAI handled everything.",
+    name: "Rahul Mehta",
+    title: "Founder",
+    company: "TechStart Solutions"
   },
   {
-    name: 'Sarah Kapoor',
-    title: 'Founder',
-    company: 'TechStart',
-    quote:
-      'RecruiterAI gave us back our week. The workflows feel like we hired an ops team—without adding headcount.',
+    quote: "The AI screening is incredibly accurate. We're seeing 3x more qualified candidates in our pipeline.",
+    name: "Sarah Johnson",
+    title: "Head of HR",
+    company: "GrowthCo"
   },
   {
-    name: 'Priya Sharma',
-    title: 'CEO',
-    company: 'InnovateLabs',
-    quote:
-      'We finally have a repeatable hiring process. Less chaos, faster decisions, and a much better candidate experience.',
-  },
+    quote: "Finally, a recruiting tool that actually saves time instead of adding more work. Game changer.",
+    name: "Priya Sharma",
+    title: "CEO",
+    company: "InnovateLabs"
+  }
 ];
 
-function initials(name) {
-  return name
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0].toUpperCase())
-    .join('');
-}
-
-function TestimonialCard({ name, title, company, quote, index }) {
-  const hue = index % 3;
-
-  return (
-    <figure className={styles.card}>
-      <div className={[styles.avatar, styles[`h${hue}`]].join(' ')} aria-hidden="true">
-        <span className={styles.initials}>{initials(name)}</span>
-      </div>
-
-      <blockquote className={styles.quote}>“{quote}”</blockquote>
-      <figcaption className={styles.meta}>
-        <span className={styles.name}>{name}</span>
-        <span className={styles.role}>
-          {title} · {company}
-        </span>
-      </figcaption>
-    </figure>
-  );
-}
-
 export default function Testimonials() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className={styles.section} aria-labelledby="testimonials-title">
+    <section id="testimonials" className={styles.section} ref={ref}>
       <div className="container">
-        <header className={styles.header}>
-          <h2 className={styles.title} id="testimonials-title">
-            Trusted by <span className={styles.gradient}>500+</span> Companies
+        <div className={`${styles.header} ${isVisible ? styles.visible : ''}`}>
+          <h2 className={styles.title}>
+            Trusted by <span className="gradient-text">500+</span> Companies
           </h2>
-          <p className={styles.subtitle}>Teams use RecruiterAI to move faster without sacrificing quality.</p>
-        </header>
+          <p className={styles.subtitle}>
+            See what hiring teams are saying about RecruiterAI
+          </p>
+        </div>
 
         <div className={styles.grid}>
-          {TESTIMONIALS.map((t, i) => (
-            <TestimonialCard key={t.name} {...t} index={i} />
+          {TESTIMONIALS.map((testimonial, index) => (
+            <div 
+              key={index} 
+              className={`${styles.card} ${isVisible ? styles.visible : ''}`}
+              style={{ animationDelay: `${index * 0.15}s` }}
+            >
+              <div className={styles.avatar}>
+                {testimonial.name.split(' ').map(n => n[0]).join('')}
+              </div>
+              <p className={styles.quote}>"{testimonial.quote}"</p>
+              <div className={styles.author}>
+                <div className={styles.name}>{testimonial.name}</div>
+                <div className={styles.title}>{testimonial.title} · {testimonial.company}</div>
+              </div>
+            </div>
           ))}
         </div>
       </div>

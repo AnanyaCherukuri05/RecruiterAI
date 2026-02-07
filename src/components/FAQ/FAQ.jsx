@@ -1,58 +1,79 @@
+import { useState } from 'react';
+import useScrollAnimation from '../../hooks/useScrollAnimation.js';
 import styles from './FAQ.module.css';
 
 const FAQS = [
   {
-    q: 'How does AI screening work?',
-    a: 'RecruiterAI parses resumes, scores candidates against role-specific criteria, and produces a ranked shortlist with explainable signals (skills, experience, keywords, and rubric matches).',
+    question: 'How does AI screening work?',
+    answer: 'RecruiterAI uses advanced natural language processing to analyze resumes, match candidates against job requirements, and rank them based on skills, experience, and cultural fit. The AI learns from your hiring decisions to improve over time.'
   },
   {
-    q: 'Does RecruiterAI integrate with ATS?',
-    a: 'Yes. RecruiterAI can sync candidates and statuses with common ATS tools. If you have a specific ATS, we can map the workflow fields and stages during setup.',
+    question: 'Does RecruiterAI integrate with ATS?',
+    answer: 'Yes! RecruiterAI integrates seamlessly with major ATS platforms including Greenhouse, Lever, Workday, and BambooHR. We also offer a REST API for custom integrations.'
   },
   {
-    q: "What’s the pricing structure?",
-    a: 'Pricing is typically based on roles, monthly volume, and automation modules (screening, scheduling, assessments). You can start free and upgrade when you’re ready.',
+    question: "What's the pricing structure?",
+    answer: 'We offer flexible pricing based on your hiring volume. Plans start at $299/month for up to 50 applications, with enterprise plans available for high-volume hiring. All plans include a 14-day free trial.'
   },
   {
-    q: 'How long does setup take?',
-    a: 'Most teams are live in 1–2 days. For custom rubrics, integrations, and multi-stage pipelines, setup can take 3–7 days depending on complexity.',
+    question: 'How long does setup take?',
+    answer: 'Most teams are up and running in under 2 hours. Our onboarding team will help you configure workflows, integrate with your existing tools, and train the AI on your specific requirements.'
   },
   {
-    q: 'Is candidate data secure?',
-    a: 'RecruiterAI follows secure-by-default practices: encrypted transport, access controls, and data minimization. You can also configure retention policies and audit trails.',
-  },
+    question: 'Is candidate data secure?',
+    answer: 'Absolutely. We\'re SOC 2 Type II certified and GDPR compliant. All data is encrypted in transit and at rest, and we never share candidate information with third parties. You maintain full control over your data.'
+  }
 ];
 
-function Chevron() {
+function FAQItem({ question, answer, index, isVisible }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <svg className={styles.chevron} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <div 
+      className={`${styles.item} ${isVisible ? styles.visible : ''}`}
+      style={{ animationDelay: `${index * 0.1}s` }}
+    >
+      <button 
+        className={styles.question}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+      >
+        <span>{question}</span>
+        <svg 
+          className={`${styles.icon} ${isOpen ? styles.iconOpen : ''}`}
+          viewBox="0 0 20 20" 
+          fill="currentColor"
+        >
+          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+        </svg>
+      </button>
+      {isOpen && (
+        <div className={styles.answer}>
+          <p>{answer}</p>
+        </div>
+      )}
+    </div>
   );
 }
 
 export default function FAQ() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className={styles.section} aria-labelledby="faq-title">
+    <section id="faq" className={styles.section} ref={ref}>
       <div className="container">
-        <header className={styles.header}>
-          <h2 className={styles.title} id="faq-title">
-            Frequently Asked <span className={styles.gradient}>Questions</span>
+        <div className={`${styles.header} ${isVisible ? styles.visible : ''}`}>
+          <h2 className={styles.title}>
+            Frequently Asked <span className="gradient-text">Questions</span>
           </h2>
-          <p className={styles.subtitle}>Everything you need to know before you start.</p>
-        </header>
+          <p className={styles.subtitle}>
+            Everything you need to know about RecruiterAI
+          </p>
+        </div>
 
         <div className={styles.list}>
-          {FAQS.map((item) => (
-            <details key={item.q} className={styles.item}>
-              <summary className={styles.summary}>
-                <span className={styles.question}>{item.q}</span>
-                <Chevron />
-              </summary>
-              <div className={styles.answer}>
-                <p>{item.a}</p>
-              </div>
-            </details>
+          {FAQS.map((faq, index) => (
+            <FAQItem key={index} {...faq} index={index} isVisible={isVisible} />
           ))}
         </div>
       </div>

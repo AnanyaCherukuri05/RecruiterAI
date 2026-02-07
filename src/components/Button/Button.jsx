@@ -1,26 +1,19 @@
 import styles from './Button.module.css';
 
-export default function Button({
-  as: Component = 'a',
-  variant = 'primary',
-  href,
-  type,
-  onClick,
-  children,
-  className,
-  ...rest
-}) {
-  const classes = [styles.base, styles[variant], className].filter(Boolean).join(' ');
+export default function Button({ variant = 'primary', href, children, ...props }) {
+  const className = `${styles.button} ${styles[variant]}`;
+
+  if (href) {
+    return (
+      <a href={href} className={className} {...props}>
+        {children}
+      </a>
+    );
+  }
 
   return (
-    <Component
-      className={classes}
-      href={Component === 'a' ? href : undefined}
-      type={Component === 'button' ? type ?? 'button' : undefined}
-      onClick={onClick}
-      {...rest}
-    >
+    <button className={className} {...props}>
       {children}
-    </Component>
+    </button>
   );
 }

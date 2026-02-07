@@ -1,0 +1,157 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Animated gradient orbs */
+.orb1,
+.orb2,
+.orb3 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: float 20s ease-in-out infinite;
+}
+
+.orb1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--accent-1), transparent);
+  top: -10%;
+  left: -10%;
+  animation-duration: 25s;
+}
+
+.orb2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-2), transparent);
+  top: 30%;
+  right: -15%;
+  animation-duration: 30s;
+  animation-delay: -10s;
+}
+
+.orb3 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, var(--accent-3), transparent);
+  bottom: -10%;
+  left: 20%;
+  animation-duration: 28s;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(50px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+}
+
+/* Floating particles */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--light-primary);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Grid pattern */
+.grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(var(--rgb-light-primary), 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--rgb-light-primary), 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .orb1,
+  .orb2,
+  .orb3,
+  .particle,
+  .grid {
+    animation: none;
+  }
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .orb1,
+  .orb2,
+  .orb3 {
+    filter: blur(60px);
+    opacity: 0.2;
+  }
+
+  .orb1 {
+    width: 300px;
+    height: 300px;
+  }
+
+  .orb2 {
+    width: 350px;
+    height: 350px;
+  }
+
+  .orb3 {
+    width: 280px;
+    height: 280px;
+  }
+
+  .particle {
+    display: none;
+  }
+}

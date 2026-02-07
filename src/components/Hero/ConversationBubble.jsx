@@ -1,14 +1,10 @@
 import styles from './Hero.module.css';
 
-export default function ConversationBubble({ quote, byline, position }) {
-  const className = [styles.bubble, position ? styles[position] : null].filter(Boolean).join(' ');
-
+export default function ConversationBubble({ position, name, quote }) {
   return (
-    <div className={className}>
-      <p className={styles.quote}>
-        <em>{quote}</em>
-      </p>
-      <span className={styles.byline}>{byline}</span>
+    <div className={`${styles.bubble} ${styles[position]}`}>
+      <p className={styles.quote}>"{quote}"</p>
+      <p className={styles.author}>— {name}</p>
     </div>
   );
 }
